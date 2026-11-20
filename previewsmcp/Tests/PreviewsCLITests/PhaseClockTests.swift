@@ -6,7 +6,7 @@ import Testing
 
 @Suite("Phase clock")
 struct PhaseClockTests {
-    actor RecordingReporter: ProgressReporter {
+    actor RecordingReporter: PreviewsCore.ProgressReporter {
         private(set) var reports: [String] = []
         private(set) var ticks: [String] = []
 
@@ -75,7 +75,7 @@ struct PhaseClockTests {
 
     @Test("a nil reporter runs the work with no clock machinery")
     func nilReporterRunsBare() async throws {
-        let reporter: (any ProgressReporter)? = nil
+        let reporter: (any PreviewsCore.ProgressReporter)? = nil
         let value = try await withPhase(reporter, .rendering, "Rendering...") {
             42
         }

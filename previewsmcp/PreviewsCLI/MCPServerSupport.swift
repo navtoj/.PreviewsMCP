@@ -7,7 +7,7 @@ import PreviewsEngine
 // MARK: - Progress
 
 /// MCP progress reporter that sends progress notifications and log messages to the client.
-final class MCPProgressReporter: ProgressReporter, @unchecked Sendable {
+final class MCPProgressReporter: PreviewsCore.ProgressReporter, @unchecked Sendable {
     private struct Position {
         var step = 0
         var ticks = 0

@@ -18,7 +18,7 @@ public actor IOSPreviewSession {
     private let compiler: Compiler
     private let agentBuilder: IOSAgentBuilder
     private let simulatorManager: any SimulatorControlling
-    private let progress: (any ProgressReporter)?
+    private let progress: (any PreviewsCore.ProgressReporter)?
 
     /// Boot/install/launch retry ceiling (default 3). Injectable so a unit test can force a
     /// single attempt (no 3s inter-attempt sleeps) to drive the start()-failure reclaim path.
@@ -145,7 +145,7 @@ public actor IOSPreviewSession {
         setupCompilerFlags: [String] = [],
         setupSDKPath: String? = nil,
         setupDylibPath: URL? = nil,
-        progress: (any ProgressReporter)? = nil,
+        progress: (any PreviewsCore.ProgressReporter)? = nil,
         maxBootAttempts: Int = 3,
         makeJITReloader: @escaping MakeJITReloader
     ) {

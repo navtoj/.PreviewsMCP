@@ -69,7 +69,8 @@ llvm_repository(
     patches = [
         "//patches:llvm-machoplatform-bootstrap-race.patch",
         "//patches:llvm-mapperjitlink-abandon-slab.patch",
+        "//patches:rdf-register-ref-less.patch",
     ],
-    sha256 = "a906c066310e19d876faae4119b5269d7bcee1abab8eebc3e30839b7f81bbbc7",
-    url = "https://github.com/obj-p/PreviewsMCP/releases/download/llvm-src-swift-6.2.3-RELEASE/llvm-src-swift-6.2.3-RELEASE.tar.gz",
+    sha256 = "e6f6fd5daac8fd4d9d91a45d6d17a53fe50757cbdcd1a97897534e8de94f8d9b",
+    url = "file:///Users/navtoj/.local/llvm-src/llvm-src-swift-6.2.3-RELEASE.tar.gz",
 )

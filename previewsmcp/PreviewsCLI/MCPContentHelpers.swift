@@ -7,7 +7,7 @@ extension [Tool.Content] {
     /// that want to display the daemon's human-readable response.
     func joinedText() -> String {
         compactMap { item in
-            if case let .text(t) = item { return t }
+            if case let .text(t, _, _) = item { return t }
             return nil
         }.joined(separator: "\n")
     }
@@ -37,7 +37,7 @@ extension CallTool.Result {
     func payloadText() -> String {
         var items = content
         for message in noticeMessages.reversed() {
-            guard case let .text(t) = items.last, t == message else { break }
+            guard case let .text(t, _, _) = items.last, t == message else { break }
             items.removeLast()
         }
         return items.joinedText()

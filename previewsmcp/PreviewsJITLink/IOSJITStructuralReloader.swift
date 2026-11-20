@@ -20,7 +20,7 @@ public actor IOSJITStructuralReloader: IOSStructuralReloader {
     }
 
     public func render(
-        _ build: JITRenderBuild, progress: (any ProgressReporter)?
+        _ build: JITRenderBuild, progress: (any PreviewsCore.ProgressReporter)?
     ) async throws {
         // Literal re-render: the same object is already linked in the live generation, so just
         // re-run its entry. It re-seeds DesignTimeStore from the (rewritten) values JSON, with

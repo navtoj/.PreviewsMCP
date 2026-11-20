@@ -4,7 +4,7 @@ import PreviewsCore
 import PreviewsIOS
 
 /// CLI progress reporter that prints `[X/Y] message` to stderr.
-public struct StderrProgressReporter: ProgressReporter {
+public struct StderrProgressReporter: PreviewsCore.ProgressReporter {
     public let totalSteps: Int
     private let counter = OSAllocatedUnfairLock(initialState: 0)
 
@@ -61,7 +61,7 @@ public func detectAndBuild(
     platform: PreviewPlatform,
     scheme: String? = nil,
     buildSystem buildSystemOverride: BuildSystemKind? = nil,
-    progress: (any ProgressReporter)? = nil
+    progress: (any PreviewsCore.ProgressReporter)? = nil
 ) async throws -> BuildContext? {
     await progress?.report(.detectingProject, message: "Detecting project...")
     guard

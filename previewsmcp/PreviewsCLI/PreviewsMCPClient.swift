@@ -180,7 +180,7 @@ actor PreviewsMCPClient: MCPClienting, LivenessPinging {
                Message<CancelledNotification>.self, from: raw
            )
         {
-            fail(id: cancelled.params.requestId, with: CancellationError())
+            if let requestId = cancelled.params.requestId { fail(id: requestId, with: CancellationError()) }
         }
         for handler in notificationHandlers[method] ?? [] {
             await handler(raw)

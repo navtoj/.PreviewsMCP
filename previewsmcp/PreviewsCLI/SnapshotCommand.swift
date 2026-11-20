@@ -309,7 +309,7 @@ struct SnapshotCommand: AsyncParsableCommand {
 
         response.surfaceNotices()
         for item in response.content {
-            if case let .image(base64, mimeType, _) = item {
+            if case let .image(base64, mimeType, _, _) = item {
                 guard let data = Data(base64Encoded: base64) else {
                     throw SnapshotCommandError.invalidImageData
                 }

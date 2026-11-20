@@ -81,6 +81,7 @@ public actor Compiler {
             "-module-cache-path", moduleCachePath.path,
         ]
         args += extraFlags
+        args += Self.jitSafeFrontendFlags
         args += ["-o", objectFile.path, sourceFile.path]
 
         try await run(args)
@@ -168,12 +169,20 @@ public actor Compiler {
             "-emit-module-path", moduleFile.path,
         ]
         args += extraFlags
+        args += Self.jitSafeFrontendFlags
         args += ["-o", objectFile.path]
         args += sourceFiles.map(\.path)
 
         try await run(args)
         return StableModule(moduleName: moduleName, modulesDir: moduleDir, objectPath: objectFile)
     }
+
+    /// ld-prime synthesizes `objc_msgSend$<selector>` stubs at static link time; the preview
+    /// JIT has no such step, so emit plain `objc_msgSend` calls instead.
+    private static let jitSafeFrontendFlags: [String] = [
+        "-Xfrontend", "-disable-objc-msgsend-selector-stubs",
+        "-Xfrontend", "-disable-objc-msgsend-class-selector-stubs",
+    ]
 
     /// Per-module incremental build directory, reused across edits so the driver's
     /// `.swiftdeps` records and the unchanged-file objects persist between compiles.
@@ -268,6 +277,7 @@ public actor Compiler {
             "-output-file-map", mapFile.path,
         ]
         args += extraFlags
+        args += Self.jitSafeFrontendFlags
         args += [overlayFile.path]
         args += bulkFiles.map(\.path)
 
@@ -330,6 +340,7 @@ public actor Compiler {
             "-module-cache-path", moduleCachePath.path,
         ]
         capture += extraFlags
+        capture += Self.jitSafeFrontendFlags
         capture += [overlayFile.path]
         capture += bulkFiles.map(\.path)
 

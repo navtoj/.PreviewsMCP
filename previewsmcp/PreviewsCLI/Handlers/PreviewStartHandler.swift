@@ -554,7 +554,7 @@ private func detectBuildContext(
     for fileURL: URL,
     params: CallTool.Parameters,
     platform: PreviewPlatform,
-    progress: (any ProgressReporter)? = nil
+    progress: (any PreviewsCore.ProgressReporter)? = nil
 ) async throws -> (context: BuildContext?, rebuild: @Sendable () async throws -> BuildContext?) {
     let projectRootURL = extractOptionalString("projectPath", from: params)
         .map { Path.normalizeURL($0) }
@@ -605,7 +605,7 @@ private func startMacOSPreview(
     headless: Bool = true,
     host: PreviewHost,
     refresh: (@Sendable () async throws -> BuildContext?)? = nil,
-    progress: (any ProgressReporter)? = nil
+    progress: (any PreviewsCore.ProgressReporter)? = nil
 ) async throws -> String {
     let session = PreviewSession(
         sourceFile: fileURL,

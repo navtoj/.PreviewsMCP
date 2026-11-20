@@ -291,7 +291,7 @@ struct VariantsCommand: AsyncParsableCommand {
             case "ok":
                 guard let imageIndex = outcome.imageIndex,
                       imageIndex < response.content.count,
-                      case let .image(base64, _, _) = response.content[imageIndex]
+                      case let .image(base64, _, _, _) = response.content[imageIndex]
                 else {
                     fputs(
                         "[error] \(outcome.label): daemon reported ok but imageIndex is invalid\n",

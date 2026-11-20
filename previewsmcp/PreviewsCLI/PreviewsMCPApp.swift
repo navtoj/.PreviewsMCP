@@ -66,7 +66,7 @@ public enum PreviewsMCPApp {
             // matches the sync branch (ArgumentParser formats
             // ValidationError / ExitCode correctly).
             if let asyncCommand = command as? any AsyncParsableCommand {
-                Task {
+                Task.detached {
                     do {
                         var mutable = asyncCommand
                         try await mutable.run()

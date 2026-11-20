@@ -400,7 +400,7 @@ struct SnapshotAllCommand: AsyncParsableCommand {
         }
         response.surfaceNotices()
         for item in response.content {
-            if case let .image(base64, _, _) = item {
+            if case let .image(base64, _, _, _) = item {
                 guard let data = Data(base64Encoded: base64) else {
                     throw DaemonToolError.daemonError("daemon returned invalid (non-base64) image data")
                 }
@@ -454,7 +454,7 @@ struct SnapshotAllCommand: AsyncParsableCommand {
             if outcome.status == "ok",
                let imageIndex = outcome.imageIndex,
                imageIndex >= 0, imageIndex < response.content.count,
-               case let .image(base64, _, _) = response.content[imageIndex],
+               case let .image(base64, _, _, _) = response.content[imageIndex],
                let data = Data(base64Encoded: base64)
             {
                 return VariantOutcome(slot: slot, rendered: .success(data))

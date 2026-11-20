@@ -277,7 +277,7 @@ public class PreviewHost: NSObject, NSApplicationDelegate {
     @discardableResult
     public func jitStructuralReload(
         sessionID: String, session: PreviewSession,
-        progress: (any ProgressReporter)? = nil
+        progress: (any PreviewsCore.ProgressReporter)? = nil
     ) async throws -> URL {
         restoreAgentWindowFrame(sessionID: sessionID, session: session)
         let window = agentWindowSpec(for: sessionID)
@@ -313,7 +313,7 @@ public class PreviewHost: NSObject, NSApplicationDelegate {
     public func jitStart(
         sessionID: String, session: PreviewSession,
         title: String, size: NSSize, headless: Bool,
-        progress: (any ProgressReporter)? = nil
+        progress: (any PreviewsCore.ProgressReporter)? = nil
     ) async throws {
         sessions[sessionID] = session
         if !headless, let screen = NSScreen.main?.visibleFrame {
@@ -361,7 +361,7 @@ public class PreviewHost: NSObject, NSApplicationDelegate {
     @discardableResult
     public func jitRender(
         sessionID: String, build: JITRenderBuild,
-        progress: (any ProgressReporter)? = nil
+        progress: (any PreviewsCore.ProgressReporter)? = nil
     ) async throws -> URL {
         guard let reloader = reloader(for: sessionID) else {
             throw SnapshotError.captureFailed

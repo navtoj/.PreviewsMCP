@@ -27,7 +27,7 @@ public actor JITStructuralReloader: StructuralReloader {
     }
 
     public func render(
-        _ build: JITRenderBuild, progress: (any ProgressReporter)?
+        _ build: JITRenderBuild, progress: (any PreviewsCore.ProgressReporter)?
     ) async throws {
         try await serialized { try await self.performRender(build, progress: progress) }
     }
@@ -62,7 +62,7 @@ public actor JITStructuralReloader: StructuralReloader {
     }
 
     private func performRender(
-        _ build: JITRenderBuild, progress: (any ProgressReporter)?
+        _ build: JITRenderBuild, progress: (any PreviewsCore.ProgressReporter)?
     ) async throws {
         // Literal re-render: the same object is already linked in the live generation, so just
         // re-run its entry. It re-seeds DesignTimeStore from the (rewritten) values JSON, with
@@ -150,7 +150,7 @@ public actor JITStructuralReloader: StructuralReloader {
 
     private func runRenderEntry(
         _ session: JITSession, _ build: JITRenderBuild, label: String = "render-entry",
-        progress: (any ProgressReporter)? = nil
+        progress: (any PreviewsCore.ProgressReporter)? = nil
     ) async throws {
         let mark = ContinuousClock.now
         nonisolated(unsafe) let session = session
@@ -173,7 +173,7 @@ public actor JITStructuralReloader: StructuralReloader {
     /// would misattribute the death to the render phase.
     private func runSetupEntry(
         _ session: JITSession, _ build: JITRenderBuild, _ entrySymbol: String,
-        progress: (any ProgressReporter)?
+        progress: (any PreviewsCore.ProgressReporter)?
     ) async throws {
         nonisolated(unsafe) let session = session
         let status = try await withPhase(progress, .runningSetup, "Running preview setup...") {
